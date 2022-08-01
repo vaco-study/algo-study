@@ -1,27 +1,26 @@
 function solution(s) {
-  const countArr = [];
+  const compressedLengthArr = [];
   
-  for (let i = 1; i < s.length; i++) {
-      let count = 0;
-      let answer = "";
-      
-      for (let j = 0; j < s.length; j += i) {
-      const curr = s.substr(0, i);
-      const next = s.substr(i + j, i);
-      
-      if (s.indexOf(curr) === -1) {
-          return s.length;
+  while (unitSize < s.length / 2 + 1) {
+    let count = 1;
+    let compressedStr = "";
+
+    for (let i = 0; i < s.length; i += unitSize) {
+      const curr = s.substr(i, unitSize);
+      const next = s.substr(unitSize + i, unitSize);
+
+      if (current === next) {
+        count++;
+        continue;
       }
-      
-      if (curr === next) {
-          count++;
-      } else {
-        // 이 부분의 로직을 잘 모르겠습니다.
-      }
-      
-      countArr.push(answer.length);
+
+      compressedStr = count > 1 ? compressedStr + count + current : compressedStr + current;
+      count = 1;
     }
+
+    compressedLengthArr.push(compressedStr.length);
+    unitSize++;
   }
   
-  return s.length;
+  return Math.min(...compressedLengthArr);
 }
