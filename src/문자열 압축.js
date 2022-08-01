@@ -2,7 +2,7 @@ function solution(s) {
   const length = Math.floor(s.length / 2);
   let count = 0;
   let compressedString = "";
-  let max = s.length;
+  let min = s.length;
   let i = 1;
   let j = 0;
 
@@ -38,12 +38,12 @@ function solution(s) {
       ? (compressedString += stack.pop())
       : (compressedString += `${count}${stack.pop()}`);
 
-    max = Math.min(max, compressedString.length);
+    min = Math.min(min, compressedString.length);
     count = 0;
     i++;
     j = 0;
     compressedString = "";
   }
 
-  return max;
+  return min;
 }
