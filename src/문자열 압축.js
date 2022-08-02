@@ -1,10 +1,18 @@
 function solution(s) {
-  let answer = 0;
-  let minimum = Number.MIN_SAFE_INTEGER;
-  let count = 0;
+  if (s.length === 1) return 1;
 
-  for (let i = 1; i < s.length; i++) {
-    let temporaryString = s.substr(0, i);
+  let answer = 0;
+  const strings = [];
+
+  for (let i = 1; i < parseInt(s.length / 2); i++) {
+    let count = 1;
+    let string = "";
+
+    for (let j = 0; j < s.length; j += i) {
+      const tempString = s.substring(j, i);
+      const nextString = s.substring(j + 1, i);
+      console.log(nextString);
+    }
   }
 
   return answer;
