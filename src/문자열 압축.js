@@ -21,3 +21,32 @@ function solution(s) {
 
   return s.length;
 }
+
+// function solution(s) {
+//   const compressedStrArr = [];
+//   let unitSize = 1;
+
+//   while (unitSize < s.length / 2 + 1) {
+//     let cnt = 1;
+//     let compressedStr = "";
+
+//     for (let i = 0; i < s.length; i += unitSize) {
+//       const current = s.substr(i, unitSize);
+//       const next = s.substr(unitSize + i, unitSize);
+
+//       if (current === next) {
+//         cnt++;
+//         continue;
+//       }
+
+//       compressedStr =
+//         cnt > 1 ? compressedStr + cnt + current : compressedStr + current;
+//       cnt = 1;
+//     }
+
+//     compressedStrArr.push(compressedStr.length);
+//     unitSize++;
+//   }
+
+//   return Math.min(...compressedStrArr);
+// }
