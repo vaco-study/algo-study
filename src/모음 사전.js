@@ -16,8 +16,5 @@ function solution(goal) {
     dfs(word, 0);
   });
 
-  console.log(wordsCollection);
-  return wordsCollection.indexOf(goal);
+  return wordsCollection.indexOf(goal) + 1;
 }
-
-console.log(solution("AAAAE"));
