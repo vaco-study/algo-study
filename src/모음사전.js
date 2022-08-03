@@ -1,25 +1,22 @@
 function solution(word) {
-  const alphabetList = ["A", "E", "I", "O", "U"];
-  let count = 0;
+    const chars = ["A", "E", "I", "O", "U"];
+  let result = [];
 
-  for (let i = 0; i < word.length; i++) {
-    const alphabet = word[i];
-    
-    if (alphabet === "A") {
-      count++;
+  const dfs = (len, res) => {
+    if (res.length === len) {
+      result = [...result, res];
+    } else {
+      for (let i = 0; i < 5; i++) {
+        dfs(len, res + chars[i]);
+      }
     }
+  };
+
+  for (let i = 1; i <= 5; i++) {
+    dfs(i, "");
   }
 
-  for (let i = 0; i < alphabetList.length; i++) {
-    const alphabet = alphabetList[i];
-
-    if (word[i] || word[i] === alphabet) {
-      count += (Math.pow(5, alphabetList.length - i - 1) * alphabetList.indexOf(alphabet)) ;
-    }
-    
-  }
-
-  return count;
+  return result.sort().findIndex((res) => res === word) + 1;
 }
 
 /*
