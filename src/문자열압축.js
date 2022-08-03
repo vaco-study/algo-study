@@ -1,5 +1,6 @@
 function solution(s) {
   const compressedLengthArr = [];
+  let unitSize = 1;
   
   while (unitSize < s.length / 2 + 1) {
     let count = 1;
@@ -9,12 +10,12 @@ function solution(s) {
       const curr = s.substr(i, unitSize);
       const next = s.substr(unitSize + i, unitSize);
 
-      if (current === next) {
+      if (curr === next) {
         count++;
         continue;
       }
 
-      compressedStr = count > 1 ? compressedStr + count + current : compressedStr + current;
+      compressedStr = count > 1 ? compressedStr + count + curr : compressedStr + curr;
       count = 1;
     }
 
