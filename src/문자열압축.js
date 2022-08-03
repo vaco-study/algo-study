@@ -1,7 +1,7 @@
 function solution(s) {
   const compressedLengthArr = [];
   let unitSize = 1;
-  
+
   while (unitSize < s.length / 2 + 1) {
     let count = 1;
     let compressedStr = "";
@@ -15,13 +15,14 @@ function solution(s) {
         continue;
       }
 
-      compressedStr = count > 1 ? compressedStr + count + curr : compressedStr + curr;
+      compressedStr =
+        count > 1 ? compressedStr + count + curr : compressedStr + curr;
       count = 1;
     }
 
     compressedLengthArr.push(compressedStr.length);
     unitSize++;
   }
-  
+
   return Math.min(...compressedLengthArr);
 }
