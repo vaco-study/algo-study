@@ -1,4 +1,5 @@
 function solution(priorities, location) {
+
   const printOrder = [];
   const firstPriority = Math.max(...priorities);
   let flag = 0;
