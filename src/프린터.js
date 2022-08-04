@@ -1,5 +1,5 @@
 function solution(priorities, location) {
-  let max = Math.max(...priorities);
+  let theMostPriority = Math.max(...priorities);
   let changedLocation = location;
   let isTargetPrinted = false;
   let count = 0;
@@ -8,22 +8,24 @@ function solution(priorities, location) {
     const target = priorities.shift();
 
     if (changedLocation === 0) {
-      if (target < max) {
+      if (target < theMostPriority) {
         priorities.push(target);
         changedLocation = priorities.length - 1;
-      } else {
-        count++;
-        isTargetPrinted = true;
-      }
-    } else {
-      if (target < max) {
-        priorities.push(target);
-      } else {
-        count++;
-        max = Math.max(...priorities);
+        continue;
       }
 
+      count++;
+      isTargetPrinted = true;
+    } else {
+      if (target < theMostPriority) {
+        priorities.push(target);
+        changedLocation--;
+        continue;
+      }
+
+      count++;
       changedLocation--;
+      theMostPriority = Math.max(...priorities);
     }
   }
 
