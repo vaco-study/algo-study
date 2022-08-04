@@ -8,11 +8,11 @@ function solution(people, limit) {
   while (lt < rt) {
     const sum = people[lt] + people[rt];
 
-    if (sum <= limit) {
+    if (sum > limit) {
       lt++;
-      rt--;
     } else {
       lt++;
+      rt--;
     }
 
     result++;
