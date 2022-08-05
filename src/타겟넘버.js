@@ -1,29 +1,20 @@
-function solution(numbers, target) {
-  let left = 0;
-  let right = 0;
-  let sum = 0;
+export default function solution(numbers, target) {
   let count = 0;
 
-  while (numbers[left] > 0) {
-    if (right === numbers.length) {
-      left++;
-      right = left;
-      sum = 0;
-      continue;
+  function dfs(index, sum) {
+    if (index === numbers.length) {
+      if (sum === target) count++;
+      
+      return;
     }
-
-    numbers[right] * -1;
-    sum += numbers[++right];
-
-    if (sum === target) {
-      left++;
-      right = left;
-      sum = 0;
-      count++;
-    }
+    
+    dfs(index + 1, sum + numbers[index]);
+    dfs(index + 1, sum - numbers[index]);
   }
-
-  return count * 2;
+  
+  dfs(0, 0);
+  
+  return count;
 }
 
 /*
@@ -42,9 +33,9 @@ n개의 음이 아닌 정수들이 있습니다. 이 정수들을 순서를 바�
 각 숫자는 1 이상 50 이하인 자연수입니다.
 타겟 넘버는 1 이상 1000 이하인 자연수입니다.
 입출력 예
-numbers	target	return
-[1, 1, 1, 1, 1]	3	5
-[4, 1, 2, 1]	4	2
+numbers	         target	 return
+[1, 1, 1, 1, 1]	   3	     5
+[4, 1, 2, 1]	     4     	 2
 입출력 예 설명
 입출력 예 #1
 
