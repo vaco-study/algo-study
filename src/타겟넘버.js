@@ -1,43 +1,17 @@
 function solution(numbers, target) {
-  let result = 0;
-  let sum = 0;
-  let minusSum = 0;
-  let maxSum = numbers.reduce((acc, cur) => acc + cur, 0);
+  let count = 0;
 
-  for (let i = 0; i < numbers.length; i++) {
-    if (sum < target) sum += numbers[i];
-    if (sum === target) {
-      minusSum = maxSum - sum;
-      break;
-    }
-    if (sum > target) {
-      minusSum = maxSum - (sum - target);
-      break;
-    }
-  }
-
-  const possibleNums = [];
-
-  for (let i = 0; i < numbers.length; i++) {
-    const curNum = numbers[i];
-    let acc = [curNum];
-
-    if (curNum === minusSum) {
-      possibleNums.push(curNum);
-      continue;
+  const dfs = (index = 0, sum = 0) => {
+    if (index > numbers.length - 1) {
+      if (sum === target) count++;
+      return;
     }
 
-    for (let j = i + 1; j < numbers.length; j++) {
-      acc.push(numbers[j]);
-      const sum = acc.reduce((acc, cur) => acc + cur, 0);
+    dfs(index + 1, sum + numbers[index]);
+    dfs(index + 1, sum - numbers[index]);
+  };
 
-      if (sum === minusSum) {
-        possibleNums = [...possibleNums, ...curNum];
-      }
+  dfs();
 
-      if (sum > minusSum) {
-        continue;
-      }
-    }
-  }
+  return count;
 }
