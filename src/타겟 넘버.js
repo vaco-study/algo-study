@@ -1,23 +1,18 @@
 function solution(numbers, target) {
-  dfs(numbers, 0);
+  let count = 0;
 
-  const filteredCases = allCases.filter(
-    (element) =>
-      element.length === numbers.length &&
-      element.reduce((acc, cur) => acc + cur, 0) === target
-  );
+  const dfs = (count, sum) => {
+    if (count === numbers.length) {
+      if (sum === target) count++;
 
-  return filteredCases.length;
+      return;
+    }
+
+    dfs(count + 1, sum + numbers[count]);
+    dfs(count + 1, sum - numbers[count]);
+  };
+
+  dfs(0, 0);
+
+  return count;
 }
-
-let allCases = [];
-
-const dfs = (nums, num, arr = [], rest = []) => {
-  allCases.push([...arr, ...rest, ...nums]);
-
-  for (let i = 0; i < nums.length; i++) {
-    arr.push(-nums[i]);
-    dfs(nums.slice(i + 1), num + 1, arr, nums.slice(0, i));
-    arr.pop();
-  }
-};
