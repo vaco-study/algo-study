@@ -1,14 +1,23 @@
 function solution(word) {
   const alphabet = ["A", "E", "I", "O", "U"];
-  const numOfWords = [1, 6, 31, 156, 781];
-  let count = 0;
+  const allcases = [];
 
-  for (let i = 0; i < word.length; i++) {
-    const position = alphabet.indexOf(word[i]);
-    const numOfRestWords = numOfWords[4 - i];
+  getPermutaions(alphabet, alphabet.length);
 
-    count += numOfRestWords * position + 1;
+  function getPermutaions(array, num) {
+    const result = [];
+
+    if (num === 1) {
+      return array;
+    }
+
+    array.forEach((fixed, index, origin) => {
+      const cases = getPermutaions(origin.slice(index + 1), num - 1);
+      const attachedFixed = cases.map((value) => [fixed, ...value]);
+
+      result.push(...attachedFixed);
+    });
   }
 
-  return count;
+  return allcases.indexOf(word) + 1;
 }
