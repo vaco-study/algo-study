@@ -1,35 +1,26 @@
 function solution(numbers, target) {
   const totalSum = numbers.reduce((acc, cur) => acc + cur, 0);
   const mustBeMinus = (totalSum - target) / 2;
-  let temp = 0;
-  let count = 0;
-  let index = 0;
 
-  while (index < numbers.length) {
-    if (numbers[index] > mustBeMinus) {
-      index++;
-      continue;
-    }
+  function dfs(target, index) {
+    let count = 0;
 
-    if (numbers[index] < mustBeMinus) {
-      temp = numbers[index];
-      let newIndex = index + 1;
+    for (let i = index; i < numbers.length; i++) {
+      const temp = target - numbers[i];
 
-      while (newIndex < numbers.length) {
-        if (temp + numbers[newIndex] === mustBeMinus) {
-          count++;
-        }
+      if (!temp) {
+        count++;
 
-        newIndex++;
+        continue;
+      }
+
+      if (temp > 0) {
+        count += dfs(temp, i + 1);
       }
     }
 
-    if (numbers[index] === mustBeMinus) {
-      count++;
-    }
-
-    index++;
+    return count;
   }
 
-  return count;
+  return dfs(mustBeMinus, 0);
 }
