@@ -2,12 +2,20 @@ function solution(str1, str2) {
   const a = maker(str1);
   const b = maker(str2);
   const HANDLING_NUM = 65536;
-  const intersection = a.filter(v => b.includes(v));
-  const union = [...new Set([...a, ...b])];
+  const union = [];
+  const intersection = a.filter(v => {
+      if (b.includes(v)) {
+          union.push(v);
+          return b.splice(b.indexOf(v), 1);
+      }
+      
+      union.push(v);
+  });
 
-  if (!a.length && !b.length) return 1 * HANDLING_NUM;
+  b.forEach(v => union.push(v));
   
   
+  return intersection.length === union.length ? HANDLING_NUM : Math.floor((intersection.length / union.length) * HANDLING_NUM);
 }
 
 function maker(str) {
