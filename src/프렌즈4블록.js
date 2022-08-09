@@ -1,76 +1,48 @@
 function solution(m, n, board) {
-  const map = [];
-  let answer = 0;
-  
-  for (let i = 0; i < board.length; i++) {
-      map.push(board[i].split(""));
-  }
-  
+  const map = board.map(v => v.split(""));
+
   while(true) {
-      let isWorking = false;
-      
-      for (let y = 0; y < m; y++) {
-          for (let x = 0; x < n; x++) {
-              if (map[y][x]) {
-                  const result = bfs(y, x, map);
-                  
-                  if (result) isWorking = true;
-              }
-          }
-      }
-      
-      if (!isWorking)break;
-  }
-  
-  console.log(map);
-  return answer;
-}
+    const removed = [];
+    
+    for (let y = 0; y < m - 1; y++) {
+      for (let x = 0; x < n - 1; x++) {
+        const curPos = map[y][x];
+        const [a, b, c] = [
+          map[y][x + 1],
+          map[y + 1][x],
+          map[y + 1][x + 1],
+        ];
 
-function bfs(y, x, map) {
-  const queue = [[y, x]];
-  const moving = [[0, 1], [1, 0], [1, 1]];
-  const dead = [];
-  let count = 0;
-  let isWorking = false;
-  
-  while(queue.length) {
-      const [qy, qx] = queue.shift();
-      
-      for (let i = 0; i < moving.length; i++) {
-          let [my, mx] = [qy + moving[i][0], qx + moving[i][1]];
-          
-          while (0 <= my && my < map.length && 0 <= mx && mx < map[0].length && map[my][mx] === 0) {
-              my += moving[i][0];
-              mx += moving[i][1];
-          }
-          
-          if (0 <= my && my < map.length && 0 <= mx && mx < map[0].length) {
-              if (map[qy][qx] === map[my][mx]) {
-                  count++;
-                  queue.push([my, mx]);
-              }
+        if (curPos &&
+          curPos === a &&
+          curPos === b &&
+          curPos === c) {
+            removed.push([y, x]);
           }
       }
-      
-      if (count !== 3) {
-          count = 0;
-          continue;
-      }
+    }
 
-      count = 0;
-      dead.push([qy, qx]);
-      queue.forEach((v) => {
-          dead.push(v);
-      });
-  }
-  
-  if (dead.length) isWorking = true;
-  
-  dead.forEach((v) => {
+    if (!removed.length) {
+      return map.reduce((acc, cur) => acc + cur.filter(v => !v).length, 0);
+    }
+
+    removed.forEach(v => {
       const [y, x] = v;
-      
+
       map[y][x] = 0;
-  });
-  
-  return isWorking;
+      map[y + 1][x] = 0;
+      map[y][x + 1] = 0;
+      map[y + 1][x + 1] = 0;
+    });
+
+    for (let y = m - 1; y > 0; y--) {
+      for (let x = 0; x < n; x++) {
+        for (let k = y - 1; k >= 0 && !map[y][x]; k--) {
+          if (map[k][x]) {
+            [map[y][x], map[k][x]] = [map[k][x], 0];
+          }
+        }
+      }
+    }
+  }
 }
