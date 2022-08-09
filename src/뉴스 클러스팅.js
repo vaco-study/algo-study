@@ -24,8 +24,7 @@ function solution(str1, str2) {
   }
 
   const totalSum = duplicatedValues + str1TotalValue + str2TotalValue;
-  let jaccardSimilarity =
-    duplicatedValues / (duplicatedValues + str1TotalValue + str2TotalValue);
+  let jaccardSimilarity = duplicatedValues / totalSum;
 
   if (duplicatedValues && !totalSum) {
     jaccardSimilarity = 0;
@@ -44,12 +43,12 @@ function getMultipleSets(str) {
     const character = str[i] + str[i + 1];
     const lowerCase = character.toLowerCase();
 
-    if (regex.test(lowerCase)) {
-      if (hash.get(lowerCase)) {
-        hash.set(lowerCase, hash.get(lowerCase) + 1);
-      } else {
-        hash.set(lowerCase, 1);
-      }
+    if (!regex.test(lowerCase)) continue;
+
+    if (hash.get(lowerCase)) {
+      hash.set(lowerCase, hash.get(lowerCase) + 1);
+    } else {
+      hash.set(lowerCase, 1);
     }
   }
 
