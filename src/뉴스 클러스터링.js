@@ -2,15 +2,35 @@ function solution(str1, str2) {
   const chunksFromStr1 = splitStringByTwo(str1);
   const chunksFromStr2 = splitStringByTwo(str2);
 
-  const allChunks = [...new Set([...chunksFromStr1, ...chunksFromStr2])];
-  const sameChunks = [
+  let intersectionSize = 0;
+  let unionSize = 0;
+
+  const allUniqueSameChunks = [
     ...new Set([
       ...chunksFromStr1.filter((chunk) => chunksFromStr2.includes(chunk)),
     ]),
   ];
 
-  if (sameChunks.length === allChunks.length) return 65536;
-  return Math.floor((sameChunks.length / allChunks.length) * 65536);
+  const allUniqueChunks = [
+    ...new Set([...new Set(chunksFromStr1), ...new Set(chunksFromStr2)]),
+  ];
+
+  allUniqueSameChunks.forEach((chunk) => {
+    intersectionSize += Math.min(
+      chunksFromStr1.filter((c) => c === chunk).length,
+      chunksFromStr2.filter((c) => c === chunk).length
+    );
+  });
+
+  allUniqueChunks.forEach((chunk) => {
+    intersectionSize += Math.max(
+      chunksFromStr1.filter((c) => c === chunk).length,
+      chunksFromStr2.filter((c) => c === chunk).length
+    );
+  });
+
+  if (intersectionSize === unionSize) return 65536;
+  return Math.floor((intersectionSize / unionSize) * 65536);
 }
 
 function splitStringByTwo(str) {
