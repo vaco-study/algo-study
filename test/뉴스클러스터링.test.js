@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import solution from "../src/뉴스클러스터링.js"; 
 
-describe.only("뉴스클러스터링", () => {
+describe("뉴스클러스터링", () => {
   it ("case1", () => {
     expect(solution("FRANCE", "french")).equal(16384);
   });

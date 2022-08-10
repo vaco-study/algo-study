@@ -1,31 +1,39 @@
 export default function solution(str1, str2) {
-  const sliceList1 = [];
-  const sliceList2 = [];
+  const intersection = [];
+  const union = [];
 
-  for (let i = 0; i < str1.length - 1; i++) {
-    const slice1 = str1.slice(i, i + 2);
-    
-    if (slice1.search(/\W|\s|\d/g) === -1) {
-      sliceList1.push(slice1.toUpperCase());
+  const multiSets = (str, arr = []) => {
+    for (let i = 0; i < str.length; i++) {
+      const sliceStr = str.slice(i, i + 2).toLowerCase();
+      
+      if (/^[a-zA-Z]+$/g.test(sliceStr)) {
+        arr.push(sliceStr);
+      }
     }
-  }
-  
-  for (let i = 0; i < str2.length - 1; i++) {
-    const slice2 = str2.slice(i, i + 2);
-    
-    if (slice2.search(/\W|\s|\d/g) === -1) {
-      sliceList2.push(slice2.toUpperCase());
-    }
+
+    return arr;
   }
 
-  if (str1.toUpperCase() === str2.toUpperCase()) {
+  const multiSet1 = multiSets(str1);
+  const multiSet2 = multiSets(str2);
+
+  for (let i = 0; i < multiSet2.length; i++) {
+    if (multiSet1.indexOf(multiSet2[i]) >= 0) {
+      intersection.push(multiSet1.splice(multiSet1.indexOf(multiSet2[i]), 1));
+    }    
+
+    union.push(multiSet2[i]);
+  }
+
+  for (let i = 0; i < multiSet1.length; i++) {
+    union.push(multiSet1[i]);    
+  }
+
+  if (union.length === 0) {
     return 65536;
   }
 
-  const intersection = [...new Set(sliceList1.filter((value) => sliceList2.includes(value)))];
-  const combined = [...new Set([...sliceList1, ...sliceList2])];
-
-  return Math.floor(intersection.length / combined.length * 65536);
+  return Math.floor(intersection.length / union.length * 65536);
 }
 
 /*
