@@ -1,25 +1,19 @@
 function solution(number, k) {
-  let max = -Infinity;
-  const targetDigit = number.length - k;
-  let curNum = number[0];
-  let left = 0;
-  let right = left + 1;
-  let temp = left + 1;
+  const stack = [];
 
-  while (left < number.length - targetDigit) {
-    curNum += number[right];
+  for (let i = 0; i < number.length; i++) {
+    const element = number[i];
 
-    if (curNum.length === targetDigit) {
-      max = Math.max(curNum, max);
-      right = temp + 1;
-      temp++;
+    while (k > 0 && stack[stack.length - 1] < element) {
+      stack.pop();
+      k--;
     }
 
-    if (right === number.length - 1) {
-      left++;
-      right = temp = left + 1;
-    }
+    stack.push(element);
   }
 
-  return max + "";
+  // '4321'처럼 뒤의 숫자가 앞의 숫자보다 큰 경우가 한 번도 없는 경우
+  if (k > 0) stack.splice(stack.length - k, k);
+
+  return stack.join("");
 }
