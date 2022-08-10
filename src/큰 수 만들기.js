@@ -1,11 +1,7 @@
 function solution(number, k) {
-  const strToArr = (number + "").split("");
-  const newArr = strToArr.slice(0, strToArr.length - k);
-  const max = Math.max(...newArr);
-  const index = newArr.indexOf(max + "");
-  const newNumber = strToArr.slice(index).join("");
-
-  const permutation = getPermutation(newNumber, strToArr.length - k);
+  const numToString = number + "";
+  const newDigit = numToString.length - k;
+  const permutation = getPermutation(numToString, newDigit);
 
   return permutation.sort((a, b) => parseInt(b) - parseInt(a))[0];
 }
