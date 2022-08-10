@@ -5,11 +5,11 @@ const solution = (number, k) => {
   return Math.max(...combinations).toString();
 };
 
-const getCombinations = (arr, selectNumber) => {
+const getCombinations = (array, selectNumber) => {
   const results = [];
-  if (selectNumber === 1) return arr.map((el) => [el]);
+  if (selectNumber === 1) return array.map((el) => [el]);
 
-  arr.forEach((fixed, index, origin) => {
+  array.forEach((fixed, index, origin) => {
     const rest = origin.slice(index + 1);
     const combinations = getCombinations(rest, selectNumber - 1);
     const attached = combinations.map((el) => fixed + el);
