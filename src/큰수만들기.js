@@ -1,20 +1,20 @@
 export default function solution(number, k) {
-  let max = 0;
+  const stack = [];
 
-  for (let i = 0; i < number.length - 1; i++) {
-    for (let j = 1; j < number.length; j++) {
-      const slice = number.substring(i + j, number.length - k + i + j - 1);
-      let num = number[i] + slice;
-      
-      if (num.length === number.length - k) {
-        if (max < num) {
-          max = num;
-        }
-      }
+  for (let i = 0; i < number.length; i++) {
+    const num = number[i];
+    
+    while (k > 0 && stack[stack.length - 1] < num) {
+      stack.pop();
+      k--;
     }
+
+    stack.push(num);
   }
 
-  return max;
+  stack.splice(stack.length - k, k);
+
+  return stack.join("");
 }
 
 /*
