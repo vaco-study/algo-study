@@ -12,7 +12,7 @@ const arr = [];
     arr.push(num);
   }
 
-  const result = arr.splice(arr.length - k, k).join('');
+  arr.splice(arr.length - k, k);
 
-  return result;
+  return arr.join('');
 }
