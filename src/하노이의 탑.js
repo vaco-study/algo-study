@@ -1,17 +1,21 @@
 function solution(n) {
   var answer = [];
 
-  // 세개의 탑 선언
-  // 1번탑에 숫자 순서대로 추가
-  const firstTower = [];
-  const secondTower = [];
-  const thirdTower = [];
+  hanoi(n, 1, 3, 2);
 
-  for (let i = n; i >= 1; i--) {
-    firstTower.push(i);
+  function move(n, start, to) {
+    answer.push([start, to]);
   }
 
-  console.log(firstTower);
+  function hanoi(n, start, to, via) {
+    if (n === 1) {
+      move(1, start, to);
+    } else {
+      hanoi(n - 1, start, via, to);
+      move(n, start, to);
+      hanoi(n - 1, via, to, start);
+    }
+  }
 
   return answer;
 }
