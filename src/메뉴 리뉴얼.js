@@ -1,47 +1,47 @@
 function solution(orders, course) {
-  const hash = {};
+  const result = [];
 
-  for (let i = 0; i < course.length; i++) {
-    let j = 0;
-    let k = 0;
+  for (let num of course) {
+    const courses = {};
 
-    while (k < orders.length) {
-      j = 0;
+    for (let order of orders) {
+      if (order.length < num) continue;
 
-      while (j < orders[k].length) {
-        // [2,3,4]
-        const menus = orders[k].substring(j, j + course[i]);
-        j++;
+      const combination = getCombinations([...order], num);
 
-        if (menus.length < course[i]) {
-          continue;
-        }
-
-        if (!hash[menus]) {
-          hash[menus] = 1;
-        } else {
-          hash[menus] = ++hash[menus];
-        }
+      for (let menus of combination) {
+        courses[menus] = courses[menus] ? ++courses[menus] : 1;
       }
+    }
 
-      k++;
+    const max = Math.max(...Object.values(courses));
+
+    if (max === 1) continue;
+
+    for (let key in courses) {
+      if (courses[key] === max) {
+        result.push(key);
+      }
     }
   }
 
-  return hash;
+  return result.sort();
 }
 
-const getCombinations = function (arr, selectNum) {
-  const results = [];
-  if (selectNum === 1) return arr.map((value) => [value]);
+const getCombinations = function (array, selectNum) {
+  if (selectNum === 1) return array.map((value) => [value]);
 
-  arr.forEach((fixed, index, origin) => {
+  const units = [];
+
+  array.forEach((fixed, index, origin) => {
     const rest = origin.slice(index + 1);
     const combinations = getCombinations(rest, selectNum - 1);
-    const attached = combinations.map((combination) => [fixed, ...combination]);
+    const attached = combinations.map((combination) =>
+      [...fixed, ...combination].sort().join("")
+    );
 
-    results.push(...attached);
+    units.push(...attached);
   });
 
-  return results;
+  return units;
 };
