@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import solution from "../src/메뉴리뉴얼.js"; 
 
-describe.only("메뉴 리뉴얼", () => {
+describe("메뉴 리뉴얼", () => {
   it ("case1", () => {
     expect(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4])).equal(["AC", "ACDE", "BCFG", "CDE"]);
   });
