@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import solution from "../src/큰수만들기.js"; 
 
-describe.only("큰 수 만들기", () => {
+describe("큰 수 만들기", () => {
   it ("case1", () => {
     expect(solution("1924", 2)).equal("94");
   });
