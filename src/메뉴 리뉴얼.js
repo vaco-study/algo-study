@@ -8,11 +8,11 @@ function solution(orders, course) {
     for (const order of orders) {
       if (num > order.length) continue;
 
-      allCases.push(...getCombinations(order.split(""), num));
-    }
+      const combinations = getCombinations(order.split(""), num);
 
-    for (const num of allCases) {
-      CaseCounts[num] = CaseCounts[num] ? CaseCounts[num] + 1 : 1;
+      for (const Case of combinations) {
+        CaseCounts[Case] = CaseCounts[Case] ? CaseCounts[Case] + 1 : 1;
+      }
     }
 
     const maxOrderNum = Math.max(...Object.values(CaseCounts));
