@@ -1,23 +1,19 @@
 export default function solution(n) {
   const answer = [];
-  const towers = [[], [], []];
-  const last = length - 1;
 
+  const hanoi = (num, start, middle, end) => {
+    if (num === 1) {
+      answer.push([start, end]);
 
-  while (n > 0) {
-    for (let i = n; i > 0; i--) {
-      towers[0].push(i);
-      n--;
+      return;
     }
 
-    for (let i = 0; i < towers[0].length; i++) {
-      const target = towers[i].pop();
+    hanoi(num - 1, start, end, middle);
+    answer.push([start, end]);
+    hanoi(num - 1, middle, start, end);
+  };
 
-      if (target < towers[i + 1][last - 1]) {
-        towers[i + 1].push(target);
-      }
-    }
-  }
+  hanoi(n, 1, 2, 3);
 
   return answer;
 }
