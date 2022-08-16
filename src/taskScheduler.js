@@ -1,51 +1,18 @@
-/**
- * @param {character[]} tasks
- * @param {number} n
- * @return {number}
- */
 var leastInterval = function (tasks, n) {
-  if (!n) return tasks.length;
-
-  let count = 0;
-  let tasksLength = tasks.length;
-  let left = 0;
-  let right = tasks.length - 1;
-  let idleCount = 0;
-  const newTaskOrder = [];
-
-  const stack = [];
   const taskCount = {};
+  let maxVal = 0;
+  let maxValCount = 0;
 
-  while (left <= right) {
-    if (tasks[left] === tasks[right]) break;
+  for (const task of tasks) {
+    taskCount[task] = (taskCount[task] || 0) + 1;
 
-    newTaskOrder.push(tasks[left]);
-    newTaskOrder.push(tasks[right]);
-
-    taskCount[tasks[left]] = (taskCount[tasks[left]] || 0) + 1;
-    taskCount[tasks[right]] = (taskCount[tasks[right]] || 0) + 1;
-
-    left++;
-    right--;
-  }
-
-  while (tasksLength) {
-    const curTask = newTaskOrder.shift();
-    if (stack[stack.length - 1] !== curTask) {
-      stack.push(curTask);
-      count++;
-    } else {
-      tasks.push(curTask);
-    }
-
-    tasksLength--;
-  }
-
-  for (const count of Object.values(taskCount)) {
-    if (count > n) {
-      idleCount += Math.floor(count % n);
+    if (taskCount[task] > maxVal) {
+      maxVal = taskCount[task];
+      maxValCount = 1;
+    } else if (taskCount[task] === maxVal) {
+      maxValCount++;
     }
   }
 
-  return stack.length + idleCount;
+  return Math.max(tasks.length, (maxVal - 1) * (n + 1) + maxValCount);
 };
