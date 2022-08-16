@@ -1,24 +1,25 @@
 var leastInterval = function (tasks, n) {
-  if (n === 0) return tasks.length;
+  // the map will be our tracking mechanism
+  let numOfTasks = new Map();
 
-  const counter = new Map();
+  // the max occurrences
+  let maxVal = 0;
+
+  // the number of tasks that has the max occurrences
+  let maxValCount = 0;
 
   for (let task of tasks) {
-    const target = counter.get(task);
-
-    if (counter.has(task)) {
-      counter.set(target, target + 1);
-    } else {
-      counter.set(target, 1);
+    let currentCount = numOfTasks.has(task) ? numOfTasks.get(task) + 1 : 1;
+    numOfTasks.set(task, currentCount);
+    // set our maxVal and number of maxVal tasks only if we have a new max
+    if (currentCount > maxVal) {
+      maxVal = currentCount;
+      maxValCount = 1;
+      // otherwise, increment number of maxVal tasks
+    } else if (currentCount === maxVal) {
+      maxValCount++;
     }
   }
-
-  const order = [];
-  let i = 0;
-
-  while (tasks.length > 0) {
-    // 랜덤도 가능한데.. 그럼 다시 0부터 가야하는거 아닌가?
-    if (order[order.length - 1]) {
-    }
-  }
+  // our formula, handle the edge case
+  return Math.max(tasks.length, (maxVal - 1) * (n + 1) + maxValCount);
 };
