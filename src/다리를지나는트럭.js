@@ -30,7 +30,7 @@ function solution(bridge_length, weight, truck_weights) {
       truck_weights.shift();
     }
 
-    // 행위하나에 시간 1개 추가 시간 카운팅 하기
+    // 행위 하나에 시간 1개 추가 시간 카운팅 하기
     timeTaken++;
   }
 
