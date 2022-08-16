@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import solution from "../src/하노이의탑.js"; 
+import solution from "../src/하노이의 탑.js"; 
 
-describe.only("하노이의 탑", () => {
+describe("하노이의 탑", () => {
   it ("case1", () => {
     expect(solution(1)).equal([[1, 3]]);
   });
