@@ -16,19 +16,15 @@ var sumNumbers = function (root) {
   const findLeaf = (node, str) => {
     const concatStr = str.concat(node.val);
 
-    if (node.left === null && node.right === null) {
+    if (!node.left && !node.right) {
       concatStrArr.push(concatStr);
 
       return;
     }
 
-    if (node.left) {
-      findLeaf(node.left, concatStr);
-    }
+    if (node.left) findLeaf(node.left, concatStr);
 
-    if (node.right) {
-      findLeaf(node.right, concatStr);
-    }
+    if (node.right) findLeaf(node.right, concatStr);
   };
 
   findLeaf(root, "");
