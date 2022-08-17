@@ -1,4 +1,4 @@
-# algo-sutudy
+# algo-study
 
 다 같이 힘을 모아 알고리즘 실력을 길러봅시다.
 
