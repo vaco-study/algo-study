@@ -1,4 +1,4 @@
-function solution(people, limit) {
+export default function solution(people, limit) {
   people.sort((a, b) => b - a);
   let boat = 0;
 
