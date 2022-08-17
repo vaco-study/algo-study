@@ -11,7 +11,7 @@
  * @return {number}
  */
 var sumNumbers = function (root) {
-  function makingDateByDFSPreOrder(input) {
+  function makingDataByDFSPreOrder(input) {
     const data = [];
 
     function traverse(node, temp) {
@@ -27,5 +27,5 @@ var sumNumbers = function (root) {
     return data;
   }
 
-  return makingDateByDFSPreOrder(root).reduce((a, x) => a + Number(x), 0);
+  return makingDataByDFSPreOrder(root).reduce((a, x) => a + Number(x), 0);
 };
