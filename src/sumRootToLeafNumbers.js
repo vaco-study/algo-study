@@ -1,27 +1,41 @@
-export default function sumNumbers(arr) {
-  const tree = [...arr];
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *    this.val = (val===undefined ? 0 : val)
+ *    this.left = (left===undefined ? null : left)
+ *    this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * 
+ * @param {TreeNode} root 
+ * @return {number}
+ */
+
+export default function sumNumbers(root) {
   const sumStrArr = [];
-  let sumStr = "";
 
-  function dfs(node, index) {
-    if (!tree.length) return;
+  function DFS(root, rootToLeaf = "") {
+    rootToLeaf += root.val;
 
-    node = tree[index];
+    if (!root.left && !root.right) return rootToLeaf;
 
-    sumStr += `${node}`;
-    tree.shift();
+    if (root.left) {
+      sumStrArr.push(DFS(root.left, rootToLeaf));
+    }
 
-    tree.forEach((value) => {
-      sumStrArr.push(sumStr);
-      dfs(value, index + 1);
-    });
+    if (root.right) {
+      sumStrArr.push(DFS(root.right, rootToLeaf));
+    }
   }
 
-  tree.forEach((node) => {
-    dfs(node, 0);
-  });
+  const path = DFS(root);
 
-  const answer = sumStrArr.reduce((acc, cur) => acc + Number(cur), 0);
+  return path
+    ? path
+    : sumStrArr.reduce((acc, cur) => {
+        if (!cur) return acc;
 
-  return answer;
+        return acc + parseInt(cur);
+      }, 0);
 };

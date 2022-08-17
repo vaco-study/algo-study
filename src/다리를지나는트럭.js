@@ -1,21 +1,23 @@
 export default function solution(bridge_length, weight, truck_weights) {
-  if (truck_weights.length === 1 && weight > truck_weights[0]) {
-    return bridge_length + 1
-  }
-
-  const copied_truck_weights = truck_weights.slice();
+  const queue = [...truck_weights];
+  const bridge = Array(bridge_length).fill(0);
   let time = 0;
-  let numberTruckPossible = 0
 
-  while (bridge_length > 0) {
-    while (weight > numberTruckPossible || copied_truck_weights.length > 0) {
-      numberTruckPossible += copied_truck_weights[0];
-      copied_truck_weights.shift();
-      time++;
-    }
-
-    bridge_length--;
+  while (bridge.length) {
     time++;
+    bridge.shift();
+
+    if (queue.length) {
+      const totalTruckWeight = bridge.reduce((acc, cur) => acc + cur, 0);
+      
+      if (totalTruckWeight + queue[0] <= weight) {
+        bridge.push(queue.shift());
+
+        continue;
+      } 
+
+      bridge.push(0);
+    }
   }
 
   return time;

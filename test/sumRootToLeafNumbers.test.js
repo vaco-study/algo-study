@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import solution from "../src/sumRootToLeafNumbers.js"; 
 
-describe.only("Sum Root To Leaf Numbers", () => {
+describe("Sum Root To Leaf Numbers", () => {
   it ("case1", () => {
     expect(solution([1, 2, 3])).equal(25);
   });
