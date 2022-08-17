@@ -1,31 +1,19 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
-var sumNumbers = function (root) {
-  function makingDataByDFS(input) {
-    const data = [];
+const sumNumbers = function (root) {
+  return makingDataByDFS(root).reduce((a, x) => a + Number(x), 0);
+};
 
-    function traverse(node, temp) {
-      const newTemp = temp + node.val;
-      if (node.left) traverse(node.left, newTemp);
-      if (node.right) traverse(node.right, newTemp);
-      if (!node.left && !node.right) {
-        data.push(newTemp);
-      }
+const makingDataByDFS = function (input) {
+  const data = [];
+
+  const traverse = function (node, temp) {
+    if (!node.left && !node.right) {
+      data.push(temp + node.val);
     }
 
-    traverse(input, "");
-    return data;
-  }
+    if (node.left) traverse(node.left, temp + node.val);
+    if (node.right) traverse(node.right, temp + node.val);
+  };
 
-  return makingDataByDFS(root).reduce((a, x) => a + Number(x), 0);
+  traverse(input, "");
+  return data;
 };
