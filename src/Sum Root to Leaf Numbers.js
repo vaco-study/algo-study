@@ -12,29 +12,17 @@
  */
 
 var sumNumbers = function (root) {
-  const result = [];
+  let sum = 0;
 
   function recursion(root, rootToLeaf = "") {
     rootToLeaf += root.val;
 
-    if (!root.left && !root.right) return rootToLeaf;
-
-    if (root.left) {
-      result.push(recursion(root.left, rootToLeaf));
-    }
-
-    if (root.right) {
-      result.push(recursion(root.right, rootToLeaf));
-    }
+    if (!root.left && !root.right) return (sum += parseInt(rootToLeaf));
+    if (root.left) recursion(root.left, rootToLeaf);
+    if (root.right) recursion(root.right, rootToLeaf);
   }
 
-  const path = recursion(root);
+  recursion(root);
 
-  return path
-    ? path
-    : result.reduce((acc, cur) => {
-        if (!cur) return acc;
-
-        return acc + parseInt(cur);
-      }, 0);
+  return sum;
 };
