@@ -1,21 +1,15 @@
-var sumNumbers = function (root) {
+function sumNumbers(root) {
   let total = 0;
 
-  const helper = (node, prevValue) => {
-    const curValue = prevValue
-      ? prevValue + String(node.val)
-      : String(node.val);
+  const traverse = (node, prevNumString = "") => {
+    const curNumString = prevNumString + String(node.val);
 
-    if (!node.left && !node.right) {
-      total += +curValue;
-      return;
-    }
-
-    if (node.left) helper(node.left, curValue);
-    if (node.right) helper(node.right, curValue);
+    if (!node.left && !node.right) total += +curNumString;
+    if (node.left) traverse(node.left, curNumString);
+    if (node.right) traverse(node.right, curNumString);
   };
 
-  helper(root);
+  traverse(root);
 
   return total;
-};
+}
