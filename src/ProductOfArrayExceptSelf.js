@@ -14,14 +14,20 @@ const productExceptSelf = function (nums) {
     return nums.fill(0);
   }
 
-  if (zeroCounter === 1) {
-    let totalMulitpleWithoutZero = 1;
+  if (zeroCounter === 0) {
+    const totalMulitple = nums.reduce((a, x) => a * x, 1);
 
-    nums.forEach((element) => {
+    return nums.map((element) => totalMulitple / element);
+  }
+
+  if (zeroCounter === 1) {
+    const totalMulitpleWithoutZero = nums.reduce((accumulator, element) => {
       if (element !== 0) {
-        totalMulitpleWithoutZero = element * totalMulitpleWithoutZero;
+        return accumulator * element;
+      } else {
+        return accumulator;
       }
-    });
+    }, 1);
 
     return nums.map((element) => {
       if (element === 0) {
@@ -30,11 +36,5 @@ const productExceptSelf = function (nums) {
         return 0;
       }
     });
-  }
-
-  if (zeroCounter === 0) {
-    const totalMulitple = nums.reduce((a, x) => a * x, 1);
-
-    return nums.map((element) => totalMulitple / element);
   }
 };
