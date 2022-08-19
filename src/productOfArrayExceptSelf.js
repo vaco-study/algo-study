@@ -15,17 +15,16 @@ function productExceptSelf(nums) {
 
     for (let i = 0; i < nums.length; i++) {
       if (!nums[i]) {
-        answer[i] = -1;
+        answer[i] = nums.reduce((acc, cur) => {
+          if (!cur) return acc;
+          return acc * cur;
+        }, 1);
+
         continue;
       }
 
       answer[i] = 0;
     }
-
-    answer[zeroPlace[0]] = nums.reduce((acc, cur) => {
-      if (!cur) return acc;
-      return acc * cur;
-    }, 1);
 
     return answer;
   }
