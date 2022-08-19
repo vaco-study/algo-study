@@ -3,12 +3,12 @@ function productExceptSelf(nums) {
   let total = nums.reduce((acc, cur) => acc * cur, 1);
 
   if (!total) {
-    let zeroPlace = [];
+    let zeroCount = 0;
 
     for (let i = 0; i < nums.length; i++) {
-      if (!nums[i]) zeroPlace.push(i);
+      if (!nums[i]) zeroCount++;
 
-      if (zeroPlace.length > 1) {
+      if (zeroCount > 1) {
         return Array.from({ length: nums.length }, () => 0);
       }
     }
