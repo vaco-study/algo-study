@@ -10,7 +10,7 @@ var productExceptSelf = function (nums) {
     return acc * cur;
   }, 1);
 
-  nums.reverse().reduce((acc, cur, idx) => {
+  [...nums].reverse().reduce((acc, cur, idx) => {
     answer[answer.length - idx - 1] *= acc;
     return acc * cur;
   }, 1);
