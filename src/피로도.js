@@ -1,6 +1,5 @@
 function solution(k, dungeons) {
   let result = 0;
-
   const permutation = getPermutaions(dungeons, dungeons.length);
 
   permutation.forEach((element) => {
@@ -8,6 +7,10 @@ function solution(k, dungeons) {
     let startFatigue = k;
 
     for (let i = 0; i < element.length; i++) {
+      if (element.length - i < result - count) {
+        break;
+      }
+
       const [minReqFatigue, exhaustionFatigue] = element[i];
 
       if (minReqFatigue <= startFatigue) {
