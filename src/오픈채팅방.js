@@ -1,7 +1,7 @@
 function solution(record) {
   const messageList = {};
   const result = [];
-  record = record.map((message) => message.split(" "));
+  record = record.map((message) => message.split(' '));
 
   record.forEach((messageInfo) => {
     const [action, id, nickname] = messageInfo;
@@ -14,11 +14,11 @@ function solution(record) {
   record.forEach((messageInfo) => {
     const [action, id] = messageInfo;
 
-    if (action === "Enter") {
+    if (action === 'Enter') {
       result.push(`${messageList[id]}님이 들어왔습니다.`);
     }
 
-    if (action === "Leave") {
+    if (action === 'Leave') {
       result.push(`${messageList[id]}님이 나갔습니다.`);
     }
   });

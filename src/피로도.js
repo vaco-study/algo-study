@@ -1,37 +1,40 @@
 function solution(k, dungeons) {
-  let maxCount = 0;
-  const dungeonOrders = getPermutations(dungeons, dungeons.length);
+  let maxCount = -Infinity;
+  const dungeonOrders = permutate(dungeons);
 
   for (const dungeonOrder of dungeonOrders) {
     let fatigue = k;
     let count = 0;
 
     for (const dungeon of dungeonOrder) {
-      const [minNeededFatigue, spentFatigue] = dungeon;
-      if (fatigue < minNeededFatigue) break;
-
+      const [neededFatigue, spentFatigue] = dungeon;
+      if (fatigue < neededFatigue) break;
       fatigue -= spentFatigue;
       count++;
     }
 
-    maxCount = Math.max(count, maxCount);
+    maxCount = Math.max(maxCount, count);
   }
 
   return maxCount;
 }
 
-function getPermutations(arr, selectNumber) {
-  const results = [];
+function permutate(arr) {
+  const result = [];
 
-  if (selectNumber === 1) return arr.map((el) => [el]);
+  const dfs = (targetArr, index) => {
+    if (index === targetArr.length) {
+      return result.push([...targetArr]);
+    }
 
-  arr.forEach((fixed, index, origin) => {
-    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
-    const permutations = getPermutations(rest, selectNumber - 1);
-    const attached = permutations.map((el) => [fixed, ...el]);
+    for (let j = index; j < targetArr.length; j++) {
+      [targetArr[index], targetArr[j]] = [targetArr[j], targetArr[index]];
+      dfs(targetArr, index + 1);
+      [targetArr[index], targetArr[j]] = [targetArr[j], targetArr[index]];
+    }
+  };
 
-    results.push(...attached);
-  });
+  dfs(arr, 0);
 
-  return results;
+  return result;
 }
