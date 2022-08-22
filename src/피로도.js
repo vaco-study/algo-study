@@ -13,10 +13,12 @@ function solution(k, dungeons) {
 
       const [minReqFatigue, exhaustionFatigue] = element[i];
 
-      if (minReqFatigue <= startFatigue) {
-        startFatigue -= exhaustionFatigue;
-        count++;
+      if (minReqFatigue > startFatigue) {
+        continue;
       }
+
+      startFatigue -= exhaustionFatigue;
+      count++;
     }
 
     result = Math.max(result, count);
