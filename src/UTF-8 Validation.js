@@ -10,30 +10,29 @@ var validUtf8 = function (data) {
   });
 
   let isValidUTF8encoding = true;
-  let i = 1;
-  let numOfOneFirstData = countOne(octet[0]);
+  let i = 0;
+  let current = 0;
 
-  if (numOfOneFirstData)
-    while (isValidUTF8encoding) {
-      if (i === octet.length) break;
+  while (isValidUTF8encoding && i < octet.length) {
+    let bytes = octet[i].indexOf("0");
 
-      const numOfOneTarget = countOne(octet[i]);
+    if (current === 0) {
+      if (bytes === 0) continue;
+      if (bytes > 4 || bytes < 2) {
+        isValidUTF8encoding = false;
 
-      if (numOfOneFirstData - i === numOfOneTarget) isValidUTF8encoding = false;
+        continue;
+      }
 
-      i++;
+      current = bytes;
+    } else {
+      if (bytes !== 1) {
+        isValidUTF8encoding = false;
+      }
     }
+
+    i++;
+  }
 
   return isValidUTF8encoding;
 };
-
-function countOne(data) {
-  let numOfOne = 0;
-
-  for (let str of data) {
-    if (str !== "1") break;
-    numOfOne++;
-  }
-
-  return numOfOne;
-}
