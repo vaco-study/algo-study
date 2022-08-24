@@ -1,4 +1,5 @@
 var validUtf8 = function (data) {
+  debugger;
   const octet = data.map((value) => {
     let binaryData = value.toString(2);
 
@@ -9,30 +10,22 @@ var validUtf8 = function (data) {
     return binaryData;
   });
 
-  let isValidUTF8encoding = true;
-  let i = 0;
   let current = 0;
 
-  while (isValidUTF8encoding && i < octet.length) {
+  for (let i = 0; i < octet.length; i++) {
     let bytes = octet[i].indexOf("0");
 
     if (current === 0) {
       if (bytes === 0) continue;
-      if (bytes > 4 || bytes < 2) {
-        isValidUTF8encoding = false;
-
-        continue;
-      }
+      if (bytes > 4 || bytes < 2) return false;
 
       current = bytes;
     } else {
-      if (bytes !== 1) {
-        isValidUTF8encoding = false;
-      }
+      if (bytes !== 1) return false;
     }
 
-    i++;
+    current--;
   }
 
-  return isValidUTF8encoding;
+  return current === 0;
 };
