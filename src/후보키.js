@@ -10,18 +10,16 @@ function solution(table) {
   // 유효한 후보키의 개수 반환
 }
 
-function getPermutations(arr, selectNumber) {
+const getCombinations = (array, selectNumber) => {
   const results = [];
-
-  if (selectNumber === 1) return arr.map((el) => [el]);
-
-  arr.forEach((fixed, index, origin) => {
-    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
-    const permutations = getPermutations(rest, selectNumber - 1);
-    const attached = permutations.map((el) => [fixed, ...el]);
-
+  if (selectNumber === 1) {
+    return array.map((element) => [element]);
+  }
+  array.forEach((fixed, index, origin) => {
+    const rest = origin.slice(index + 1);
+    const combinations = getCombinations(rest, selectNumber - 1);
+    const attached = combinations.map((combination) => [fixed, ...combination]);
     results.push(...attached);
   });
-
   return results;
-}
+};
