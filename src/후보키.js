@@ -26,16 +26,16 @@ function solution(relation) {
     const allCases = getCombinations(notCandidateKeys, i);
 
     for (const Case of allCases) {
-      let notMin = false;
+      let isMin = true;
       for (const candidateKey of candidateKeys) {
         if (candidateKey.every((col) => Case.includes(col))) {
-          notMin = true;
+          isMin = false;
 
           break;
         }
       }
 
-      if (notMin) continue;
+      if (!isMin) continue;
 
       const arr = [];
       for (let row = 0; row < rowSize; row++) {
