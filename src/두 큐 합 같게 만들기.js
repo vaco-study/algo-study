@@ -1,32 +1,27 @@
 function solution(queue1, queue2) {
   let count = 0;
-  const queue1Sum = queue1.reduce((acc, cur) => acc + cur, 0);
-  const queue2Sum = queue2.reduce((acc, cur) => acc + cur, 0);
+  let sumQ1 = queue1.reduce((acc, cur) => acc + cur, 0);
+  let sumQ2 = queue2.reduce((acc, cur) => acc + cur, 0);
+  let pointer1 = 0;
+  let pointer2 = queue1.length;
 
-  const helper = (q1, q2, q1Sum, q2Sum) => {
-    if (!q1.length || !q2.length) {
-      count = -1;
-      return;
-    }
+  const target = (sumQ1 + sumQ2) / 2;
+  const queue = [...queue1, ...queue2];
+  const end = queue1.length * 3;
 
-    if (q1Sum === q2Sum) return;
+  while (count < end) {
+    if (sumQ1 === target) return count;
 
-    if (q1Sum > q2Sum) {
-      q1Sum -= q1[0];
-      q2Sum += q1[0];
-      q2.push(q1.shift());
+    if (sumQ1 > target) {
+      sumQ1 -= queue[pointer1];
+      pointer1++;
       count++;
-      helper(q1, q2, q1Sum, q2Sum);
     } else {
-      q2Sum -= q2[0];
-      q1Sum += q2[0];
-      q1.push(q2.shift());
+      sumQ1 += queue[pointer2];
+      pointer2++;
       count++;
-      helper(q1, q2, q1Sum, q2Sum);
     }
-  };
+  }
 
-  helper(queue1, queue2, queue1Sum, queue2Sum);
-
-  return count;
+  return -1;
 }
