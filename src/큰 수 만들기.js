@@ -15,5 +15,5 @@ function solution(number, k) {
   // '4321'처럼 뒤의 숫자가 앞의 숫자보다 큰 경우가 한 번도 없는 경우
   if (k > 0) stack.splice(stack.length - k, k);
 
-  return stack.join("");
+  return stack.join('');
 }

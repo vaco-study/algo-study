@@ -1,7 +1,7 @@
 function sumNumbers(root) {
   let total = 0;
 
-  const traverse = (node, prevNumString = "") => {
+  const traverse = (node, prevNumString = '') => {
     const curNumString = prevNumString + String(node.val);
 
     if (!node.left && !node.right) total += +curNumString;

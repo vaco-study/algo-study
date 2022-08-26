@@ -1,7 +1,7 @@
 // 재귀 풀이
 
 function solution(word) {
-  const vowels = ["A", "E", "I", "O", "U"];
+  const vowels = ['A', 'E', 'I', 'O', 'U'];
   const dictionary = [];
 
   const writeDictionary = (chunk) => {
