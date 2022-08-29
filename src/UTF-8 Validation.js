@@ -1,4 +1,5 @@
 var validUtf8 = function (data) {
+  debugger;
   const octet = data.map((value) => {
     let binaryData = value.toString(2);
 
@@ -9,31 +10,22 @@ var validUtf8 = function (data) {
     return binaryData;
   });
 
-  let isValidUTF8encoding = true;
-  let i = 1;
-  let numOfOneFirstData = countOne(octet[0]);
+  let current = 0;
 
-  if (numOfOneFirstData)
-    while (isValidUTF8encoding) {
-      if (i === octet.length) break;
+  for (let i = 0; i < octet.length; i++) {
+    let bytes = octet[i].indexOf("0");
 
-      const numOfOneTarget = countOne(octet[i]);
+    if (current === 0) {
+      if (bytes === 0) continue;
+      if (bytes > 4 || bytes < 2) return false;
 
-      if (numOfOneFirstData - i === numOfOneTarget) isValidUTF8encoding = false;
-
-      i++;
+      current = bytes;
+    } else {
+      if (bytes !== 1) return false;
     }
 
-  return isValidUTF8encoding;
-};
-
-function countOne(data) {
-  let numOfOne = 0;
-
-  for (let str of data) {
-    if (str !== "1") break;
-    numOfOne++;
+    current--;
   }
 
-  return numOfOne;
-}
+  return current === 0;
+};
