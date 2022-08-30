@@ -7,7 +7,7 @@ function verifyBreak(word, dic, start, memo) {
   if (memo[start] !== undefined) return memo[start];
 
   for (let end = start + 1; end <= word.length; end++) {
-    let wildGuess = word.slice(start, end);
+    const wildGuess = word.slice(start, end);
 
     if (dic.includes(wildGuess)) {
       if (verifyBreak(word, dic, end, memo)) {
