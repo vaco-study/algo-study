@@ -7,13 +7,10 @@ const merge = function (intervals) {
   let currentIndex = 0;
 
   for (let i = 1; i < intervals.length; i++) {
-    const lastElementOfResult = result[result.length - 1];
-    const tempArray = [lastElementOfResult, intervals[i]];
-
-    if (tempArray[0][1] >= tempArray[1][0]) {
+    if (result[result.length - 1][1] >= intervals[i][0]) {
       result[result.length - 1] = [
-        tempArray[0][0],
-        Math.max(tempArray[0][1], tempArray[1][1]),
+        result[result.length - 1][0],
+        Math.max(result[result.length - 1][1], intervals[i][1]),
       ];
       continue;
     }
