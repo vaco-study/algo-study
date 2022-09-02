@@ -4,10 +4,11 @@ const goodNodes = function (root) {
   const traverse = function (node, maxValue) {
     if (node.val >= maxValue) {
       counter++;
+      maxValue = node.val;
     }
 
-    if (node.left) traverse(node.left, Math.max(maxValue, node.val));
-    if (node.right) traverse(node.right, Math.max(maxValue, node.val));
+    if (node.left) traverse(node.left, maxValue);
+    if (node.right) traverse(node.right, maxValue);
   };
 
   traverse(root, root.val);
