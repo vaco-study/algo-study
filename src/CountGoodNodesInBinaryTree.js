@@ -1,8 +1,4 @@
-const sumNumbers = function (root) {
-  return makingDataByDFS(root);
-};
-
-const makingDataByDFS = function (root) {
+const goodNodes = function (root) {
   let counter = 0;
 
   const traverse = function (node, maxValue) {
